@@ -1,6 +1,6 @@
 # Include your imports here, if any are used.
 
-student_name = "Type your full name here."
+student_name = "John Coleman"
 
 
 # 1. Value Iteration
@@ -11,19 +11,25 @@ class ValueIterationAgent:
         """Store game object and discount value into the agent object,
         initialize values if needed.
         """
-        ...  # TODO
+        self.game = game
+        self.discount = discount
+        values = {}
+        for non_terminal_states in game.states:
+            values[non_terminal_states] = 0
+        self.values = values
 
     def get_value(self, state):
         """Return value V*(s) correspond to state.
         State values should be stored directly for quick retrieval.
         """
-        return 0  # TODO
+        return self.values[state]
 
     def get_q_value(self, state, action):
         """Return Q*(s,a) correspond to state and action.
         Q-state values should be computed using Bellman equation:
         Q*(s,a) = Σ_s' T(s,a,s') [R(s,a,s') + γ V*(s')]
         """
+        state_value = self.get_value(state)
         return 0  # TODO
 
     def get_best_policy(self, state):
