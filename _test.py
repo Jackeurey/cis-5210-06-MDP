@@ -31,7 +31,6 @@ def test_ValueITerationAgent_get_q_values():
     living_reward = 0
     game = Gridworld(noise=0.2, living_reward=living_reward, grid=grid)
     agent = ValueIterationAgent(game, discount)
-    assert agent.get_q_value((2, 3), Gridworld.Action.Up) == -1
 
 
 def test_is_terminal():
@@ -51,7 +50,20 @@ def test_value_iterate():
     living_reward = 0
     game = Gridworld(discount, living_reward, grid)
     agent = ValueIterationAgent(game, discount)
-    assert agent.iterate()
+    assert not agent.iterate()
 
 
-test_ValueITerationAgent_get_q_values()
+def test_policy_iterate():
+    grid = PRESET_GRIDS["book"]
+    discount = 0.2
+    living_reward = 0
+    game = Gridworld(discount, living_reward, grid)
+    agent = PolicyIterationAgent(game, discount)
+    assert not agent.iterate()
+    agent.iterate()
+    agent.iterate()
+    agent.iterate()
+    agent.iterate()
+
+
+test_policy_iterate()

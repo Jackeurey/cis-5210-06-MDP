@@ -1,5 +1,7 @@
 # Include your imports here, if any are used.
 import math
+import copy
+from os import confstr_names
 
 student_name = "John Coleman"
 
@@ -78,12 +80,32 @@ class PolicyIterationAgent(ValueIterationAgent):
     or override ValueIterationAgent's methods, you can add them as well.
     """
 
+    def get_best_policies(self):
+        policies = {}
+        for state in self.game.states:
+            policies[state] = self.get_best_policy(state)
+        return policies
+
+    def evaluate_policy(self, polices):
+        epsilon = 1e-6
+        converged = False
+        policy_values = {}
+        while not converged:
+            for state in self.values.keys():
+                policy_values[state] = self.get_q_value(state, polices[state])
+                if abs(policy_values[state] - self.values[state]) < epsilon:
+                    converged = True
+            self.values = policy_values
+
     def iterate(self):
         """Run single policy iteration.
         Fix current policy, iterate state values V(s) until
         |V_{k+1}(s) - V_k(s)| < ε
         """
-        epsilon = 1e-6
+        policy_values = {}
+        polices = self.get_best_policies()
+        converged = False
+        self.evaluate_policy(polices)
 
         ...  # TODO
 
