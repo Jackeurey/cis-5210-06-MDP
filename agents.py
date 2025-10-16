@@ -14,8 +14,8 @@ class ValueIterationAgent:
         self.game = game
         self.discount = discount
         values = {}
-        for non_terminal_states in game.states:
-            values[non_terminal_states] = 0
+        for state in game.states:
+            values[state] = 0
         self.values = values
 
     def get_value(self, state):
@@ -24,27 +24,48 @@ class ValueIterationAgent:
         """
         return self.values[state]
 
+    def is_terminal_state(self, state):
+        return self.game.get_actions(state) == set()
+
     def get_q_value(self, state, action):
         """Return Q*(s,a) correspond to state and action.
         Q-state values should be computed using Bellman equation:
         Q*(s,a) = Σ_s' T(s,a,s') [R(s,a,s') + γ V*(s')]
         """
-        state_value = self.get_value(state)
-        return 0  # TODO
+        expected_utility = 0
+        transitions = self.game.get_transitions(state, action).items()
+        for (next_state, chance) in transitions:
+            reward = self.game.get_reward(state, action, next_state)
+            next_value = self.get_value(
+                next_state) if self.is_terminal_state(next_state) else 0
+            expected_utility += chance * (reward + self.discount * next_value)
+        return expected_utility
 
     def get_best_policy(self, state):
         """Return policy π*(s) correspond to state.
         Policy should be extracted from Q-state values using policy extraction:
         π*(s) = argmax_a Q*(s,a)
         """
-        return None  # TODO
+        max_action = None
+        max_value = 0
+        for action in self.game.get_actions(state):
+            value = self.get_q_value(state, action)
+            if value > max_value:
+                max_value = value
+                max_action = action
+        return max_action
 
     def iterate(self):
         """Run single value iteration using Bellman equation:
         V_{k+1}(s) = max_a Q*(s,a)
         Then update values: V*(s) = V_{k+1}(s)
         """
-        ...  # TODO
+        new_values = {}
+        for state in self.game.states:
+            q_values = [self.get_q_value(state, action)
+                        for action in self.game.get_actions(state)]
+            new_values[state] = max(q_values)
+        self.values = new_values
 
 
 # 2. Policy Iteration
