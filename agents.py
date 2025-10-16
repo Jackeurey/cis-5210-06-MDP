@@ -86,8 +86,14 @@ class PolicyIterationAgent(ValueIterationAgent):
             policies[state] = self.get_best_policy(state)
         return policies
 
-    def evaluate_policy(self, polices):
+    def iterate(self):
+        """Run single policy iteration.
+        Fix current policy, iterate state values V(s) until
+        |V_{k+1}(s) - V_k(s)| < ε
+        """
         epsilon = 1e-6
+        policy_values = {}
+        polices = self.get_best_policies()
         converged = False
         policy_values = {}
         while not converged:
@@ -95,18 +101,7 @@ class PolicyIterationAgent(ValueIterationAgent):
                 policy_values[state] = self.get_q_value(state, polices[state])
                 if abs(policy_values[state] - self.values[state]) < epsilon:
                     converged = True
-                    break
             self.values = policy_values
-
-    def iterate(self):
-        """Run single policy iteration.
-        Fix current policy, iterate state values V(s) until
-        |V_{k+1}(s) - V_k(s)| < ε
-        """
-        policy_values = {}
-        polices = self.get_best_policies()
-        converged = False
-        self.evaluate_policy(polices)
 
         ...  # TODO
 
