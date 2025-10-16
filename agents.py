@@ -107,13 +107,11 @@ class PolicyIterationAgent(ValueIterationAgent):
                     converged[state] = True
             self.values = policy_values
 
-        ...  # TODO
-
 
 # 3. Bridge Crossing Analysis
 def question_3():
-    discount = ...
-    noise = ...
+    discount = 0.9
+    noise = 0.0
     return discount, noise
 
 
