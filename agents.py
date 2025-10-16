@@ -37,7 +37,7 @@ class ValueIterationAgent:
         for (next_state, chance) in transitions:
             reward = self.game.get_reward(state, action, next_state)
             next_value = self.get_value(
-                next_state) if self.is_terminal_state(next_state) else 0
+                next_state) if not self.is_terminal_state(next_state) else 0
             expected_utility += chance * (reward + self.discount * next_value)
         return expected_utility
 
