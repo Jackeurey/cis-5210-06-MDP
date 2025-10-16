@@ -1,4 +1,5 @@
 # Include your imports here, if any are used.
+import math
 
 student_name = "John Coleman"
 
@@ -47,10 +48,10 @@ class ValueIterationAgent:
         π*(s) = argmax_a Q*(s,a)
         """
         max_action = None
-        max_value = 0
+        max_value = -math.inf
         for action in self.game.get_actions(state):
             value = self.get_q_value(state, action)
-            if value >= max_value:
+            if value > max_value:
                 max_value = value
                 max_action = action
         return max_action
