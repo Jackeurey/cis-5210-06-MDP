@@ -94,13 +94,13 @@ class PolicyIterationAgent(ValueIterationAgent):
         epsilon = 1e-6
         policy_values = {}
         polices = self.get_best_policies()
-        converged = False
+        converged = {state: False for state in self.values.keys()}
         policy_values = {}
-        while not converged:
+        while not all(converged.values()):
             for state in self.values.keys():
                 policy_values[state] = self.get_q_value(state, polices[state])
                 if abs(policy_values[state] - self.values[state]) < epsilon:
-                    converged = True
+                    converged[state] = True
             self.values = policy_values
 
         ...  # TODO
