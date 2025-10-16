@@ -99,7 +99,7 @@ class PolicyIterationAgent(ValueIterationAgent):
         while not all(converged.values()):
             for state in self.values.keys():
                 policy_values[state] = self.get_q_value(state, polices[state])
-                if abs(policy_values[state] - self.values[state]) < epsilon:
+                if abs(policy_values[state] - self.values[state]) <= epsilon:
                     converged[state] = True
             self.values = policy_values
 
