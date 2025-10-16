@@ -50,7 +50,7 @@ class ValueIterationAgent:
         max_value = 0
         for action in self.game.get_actions(state):
             value = self.get_q_value(state, action)
-            if value > max_value:
+            if value >= max_value:
                 max_value = value
                 max_action = action
         return max_action
