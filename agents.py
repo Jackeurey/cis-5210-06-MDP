@@ -95,6 +95,7 @@ class PolicyIterationAgent(ValueIterationAgent):
                 policy_values[state] = self.get_q_value(state, polices[state])
                 if abs(policy_values[state] - self.values[state]) < epsilon:
                     converged = True
+                    break
             self.values = policy_values
 
     def iterate(self):
