@@ -133,9 +133,9 @@ def question_4b():
 
 
 def question_4c():
-    discount = ...
-    noise = ...
-    living_reward = ...
+    discount = 0.1
+    noise = 0.0
+    living_reward = 1.0
     return discount, noise, living_reward
     # If not possible, return 'NOT POSSIBLE'
 
