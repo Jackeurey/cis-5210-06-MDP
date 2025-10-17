@@ -159,19 +159,21 @@ def question_4e():
 # 5. Feedback
 # Just an approximation is fine.
 feedback_question_1 = """
-Type your response here.
-Your response may span multiple lines.
-Do not include these instructions in your response.
+12
 """
 
 feedback_question_2 = """
-Type your response here.
-Your response may span multiple lines.
-Do not include these instructions in your response.
+I did not understand what was being asked of me at first for both
+value and policy iteration. Once I figured the structural part out
+the rest came pretty naturally. There was one issue I had with policy
+iteration where I was not explictly updating the policy. That took
+longer than I am willing to admit to you.
 """
 
 feedback_question_3 = """
-Type your response here.
-Your response may span multiple lines.
-Do not include these instructions in your response.
+I really liked this assignment. Making us figure out what values would
+lead to differnt behaviors was great. I walked away from this with a much
+better understanding of this than I would have had otherwise.
+The grading is the only thing I would change. I did not explictly update
+the policy in policy iteration at first and I still got all but three correct.
 """
